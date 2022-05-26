@@ -18,16 +18,17 @@
     </thead>
     <tbody>
         {% for item in items%}
-        <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.barcode}}</td>
-            <td>{{item.price}}</td>
-            <td>
-                <button class="btn btn-outline btn-info">More Info</button>
-                <button class="btn btn-outline btn-success">Purchase this Item</button>
-            </td>
-        </tr>
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.barcode}}</td>
+                <td>{{item.price}}</td>
+                <td>
+                    <button class="btn btn-outline btn-info">More Info</button>
+                    <button class="btn btn-outline btn-success">Purchase this Item</button>
+                </td>
+            </tr>
+        {% endfor %}
     </tbody>
 
 
