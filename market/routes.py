@@ -22,3 +22,4 @@ def register_page():
     form=RegisterForm()
     if form.validate_on_submit():
         pass
+    return render_template('register.html',form=form)

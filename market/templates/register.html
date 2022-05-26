@@ -5,24 +5,27 @@
 {% endblock title %}
 
 {% block content %}
-<body class="centered">
+<body class="text-center">
   <div>
-      <form method="POST">
+      <form method="POST" class="form-register" style="color:white">
+        <h1 class="h3 mb-3 font-weight-normal">
+            Please Create your Account
+        </h1>
         {{form.username.label()}}
-        {{form.username(placeholder='UserName')}}
+        {{form.username(class="form-control",placeholder='UserName')}}
 
         {{form.email_address.label()}}
-        {{form.email_address(placeholder='Email Address')}}
+        {{form.email_address(class="form-control",placeholder='Email Address')}}
 
         {{form.password1.label()}}
-        {{form.password1(placeholder='Password')}}
+        {{form.password1(class="form-control",placeholder='Password')}}
 
         {{form.password2.label()}}
-        {{form.password2(placeholder='Password')}}
+        {{form.password2(class="form-control",placeholder='Password')}}
 
         <br>
-        {{form.submit.label()}}
+        {{form.submit(class="btn btn-lg btn-block btn-primary")}}
       </form>
   </div>  
 </body>
-{% endblock contents %}
+{% endblock content %}
