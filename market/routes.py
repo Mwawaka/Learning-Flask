@@ -1,6 +1,6 @@
-from flask import render_template
-from market import app
-from market.models import Item
+from flask import flash, redirect, render_template, url_for
+from market import app,db
+from market.models import Item,User
 from market.forms import RegisterForm
 
 
@@ -21,5 +21,15 @@ def market_page():
 def register_page():
     form=RegisterForm()
     if form.validate_on_submit():
-        pass
+        new_user=User(
+            username=form.username.data,
+            email_address=form.email_address.data,
+            password_hash=form.password1.data
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('market_page'))
+    if form.errors !={}:
+        flash('There was an error in cre')
+            
     return render_template('register.html',form=form)
