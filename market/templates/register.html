@@ -5,5 +5,24 @@
 {% endblock title %}
 
 {% block content %}
+<body class="centered">
+  <div>
+      <form method="POST">
+        {{form.username.label()}}
+        {{form.username(placeholder='UserName')}}
 
+        {{form.email_address.label()}}
+        {{form.email_address(placeholder='Email Address')}}
+
+        {{form.password1.label()}}
+        {{form.password1(placeholder='Password')}}
+
+        {{form.password2.label()}}
+        {{form.password2(placeholder='Password')}}
+
+        <br>
+        {{form.submit.label()}}
+      </form>
+  </div>  
+</body>
 {% endblock contents %}
