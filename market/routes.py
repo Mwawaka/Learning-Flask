@@ -1,6 +1,7 @@
 from flask import render_template
 from market import app
 from market.models import Item
+from market.forms import RegisterForm
 
 
 
@@ -14,3 +15,10 @@ def home_page():
 def market_page():
     items=Item.query.all()
     return render_template('market.html',items=items)
+
+
+@app.route('/register')
+def register_page():
+    form=RegisterForm()
+    if form.validate_on_submit():
+        pass
