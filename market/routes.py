@@ -1,5 +1,6 @@
 from flask import render_template
 from market import app
+from market.models import Item
 
 
 
@@ -11,5 +12,5 @@ def home_page():
 
 @app.route('/market')
 def market_page():
-    
+    items=Item.query.all()
     return render_template('market.html',items=items)
