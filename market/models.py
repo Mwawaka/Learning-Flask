@@ -1,3 +1,4 @@
+from sqlalchemy import ForeignKey
 from market import db
 
 
@@ -8,7 +9,7 @@ class User(db.Model):
                               nullable=False, unique=True)
     password_hash = db.Column(db.String(), nullable=False)
     budget = db.Column(db.Integer(), nullable=False, default=1000)
-    item = db.Column()
+    items = db.Column('Item',backref='owned_user',lazy=True)
 
     def __repr__(self) -> str:
         return f'User {self.username}'
@@ -20,6 +21,7 @@ class Item(db.Model):
     price = db.Column(db.Integer(), nullable=False)
     barcode = db.Column(db.String(length=12), nullable=False, unique=True)
     description = db.Column(db.String(length=1024), nullable=False, unique=True)
+    owner=db.Column(db.Integer(),db<ForeignKey('user.id'))
     
     def __repr__(self) -> str:
         return f'User {self.name}'
