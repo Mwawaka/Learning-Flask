@@ -1,8 +1,8 @@
 from flask import flash, redirect, render_template, url_for
-from market import app, db
+from market import app
 from market.models import Item, User
 from market.forms import RegisterForm
-
+from market import db
 
 @app.route('/')
 @app.route('/home')
@@ -31,6 +31,6 @@ def register_page():
     if form.errors != {}:
         for err_msg in form.errors.values():
             flash(
-                f'There was an error in creating the User: {err_msg}', category='danger')
+                f'There was an error in creating a User: {err_msg}', category='danger')
 
     return render_template('register.html', form=form)
