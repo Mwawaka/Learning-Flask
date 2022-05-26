@@ -30,6 +30,7 @@ def register_page():
         db.session.commit()
         return redirect(url_for('market_page'))
     if form.errors !={}:
-        flash('There was an error in cre')
+        for err_msg in form.errors.values():
+            flash(f'There was an error in creating the User: {err_msg}',category='danger')
             
     return render_template('register.html',form=form)
