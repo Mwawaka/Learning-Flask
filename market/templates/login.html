@@ -4,11 +4,11 @@
     |Login Page
 {% endblock title %}
 
-{% block contents %}
+{% block content %}
 <body class="text-center">
     <div>
         <form method="POST" class="form-register" style="color:white">
-            {{form.hidden_tag()}}
+            {{login_form.hidden_tag()}}
           <h1 class="h3 mb-3 font-weight-normal">
               Please Sign In To Your Account
           </h1>
@@ -24,4 +24,4 @@
         </form>
     </div>  
   </body>
-{% endblock contents %}
+{% endblock content %}
