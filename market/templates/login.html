@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    |Login Page
+{% endblock title %}
+
+{% block contents %}
+<body class="text-center">
+    <div>
+        <form method="POST" class="form-register" style="color:white">
+            {{form.hidden_tag()}}
+          <h1 class="h3 mb-3 font-weight-normal">
+              Please Sign In To Your Account
+          </h1>
+          {{login_form.user_login.label()}}
+          {{login_form.user_login(class="form-control",placeholder='UserName')}}
+  
+  
+          {{login_form.password_login.label()}}
+          {{login_form.password_login(class="form-control",placeholder='Password')}}
+  
+          <br>
+          {{login_form.login(class="btn btn-lg btn-block btn-primary")}}
+        </form>
+    </div>  
+  </body>
+{% endblock contents %}
