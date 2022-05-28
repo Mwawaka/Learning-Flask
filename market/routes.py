@@ -3,7 +3,7 @@ from market import app
 from market.models import Item, User
 from market.forms import RegisterForm,LoginForm
 from market import db
-
+from flask_login import login_user
 
 @app.route('/')
 @app.route('/home')
@@ -42,5 +42,9 @@ def login_page():
     if login_form.validate_on_submit():
         attempted_user=User.query.filter_by(username=login_form.user_login.data).first()
         if attempted_user and attempted_user.check_password(attempted_password=login_form.password_login.data):
-            pass
+            login_user(attempted_user)
+            flash(f'Successfully signed in as:{attempted_user.username}',category='success')
+            return redirect(url_for('market_page'))
+        else:
+            flash('Username and Password not matched.Please try again!',category='danger')
     return render_template('login.html',login_form=login_form)
