@@ -4,6 +4,7 @@ from market.models import Item, User
 from market.forms import RegisterForm,LoginForm
 from market import db
 
+
 @app.route('/')
 @app.route('/home')
 def home_page():
@@ -38,4 +39,8 @@ def register_page():
 @app.route('/login',methods=['GET','POST'])
 def login_page():
     login_form=LoginForm()
+    if login_form.validate_on_submit():
+        attempted_user=User.query.filter_by(username=login_form.user_login.data).first()
+        if attempted_user and attempted_user.check_password(attempted_password=login_form.password_login.data):
+            pass
     return render_template('login.html',login_form=login_form)

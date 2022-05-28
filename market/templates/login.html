@@ -18,7 +18,11 @@
   
           {{login_form.password_login.label()}}
           {{login_form.password_login(class="form-control",placeholder='Password')}}
-  
+          
+          <div class="checkbox mb-3">
+            <h6>Do you have an account?</h6>
+            <a href="{{url_for('register_page')}}" class="btn btn-sm btn-secondary">Sign Up</a>
+          </div>
           <br>
           {{login_form.login(class="btn btn-lg btn-block btn-primary")}}
         </form>
