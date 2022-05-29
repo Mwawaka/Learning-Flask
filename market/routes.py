@@ -40,7 +40,9 @@ def register_page():
 def login_page():
     login_form=LoginForm()
     if login_form.validate_on_submit():
+        
         attempted_user=User.query.filter_by(username=login_form.user_login.data).first()
+        
         if attempted_user and attempted_user.check_password(attempted_password=login_form.password_login.data):
             login_user(attempted_user)
             flash(f'Successfully signed in as:{attempted_user.username}',category='success')

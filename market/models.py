@@ -12,11 +12,15 @@ class User(db.Model):
     items = db.relationship('Item',backref='owned_user',lazy=True)
     
     @property
+    
     def password(self):
         return self.password
+    
     @password.setter
+    
     def password(self,decrypted_password):
         self.password_hash=bcrypt.generate_password_hash(decrypted_password).decode('utf-8')
+        
     def check_password(self,attempted_password):
         
         return bcrypt.check_password_hash(self.password_hash,attempted_password)
