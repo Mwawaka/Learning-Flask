@@ -16,6 +16,15 @@ class User(db.Model,UserMixin):
     items = db.relationship('Item',backref='owned_user',lazy=True)
     
     @property
+    def new_budget(self):
+        budgy=str(self.budget)
+        
+        if len(budgy)>=4:
+            return f'{budgy[:-3]},{budgy[-3:]}'
+        else:
+            return f'{budgy}'
+    
+    @property
     
     def password(self):
         return self.password
