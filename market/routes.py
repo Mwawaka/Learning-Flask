@@ -12,6 +12,7 @@ def home_page():
 
 
 @app.route('/market')
+@login_required 
 def market_page():
     items = Item.query.all()
     return render_template('market.html', items=items)
@@ -28,6 +29,8 @@ def register_page():
         )
         db.session.add(new_user)
         db.session.commit()
+        login_user(new_user)
+        flash(f'Successfully created an account!You are know logged in as : {new_user.username}')
         return redirect(url_for('market_page'))
     if form.errors != {}:
         for err_msg in form.errors.values():
