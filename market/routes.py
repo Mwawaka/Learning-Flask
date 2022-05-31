@@ -39,6 +39,9 @@ def market_page():
                     s_item_object.sell(current_user)
                     flash(
                     f'Successfully Sold : {{p_item_object.name}} for {{p_item_object.price}}$', category='info')
+                else:
+                    flash(
+                    f'Something went wrong in selling {p_item_object.name}!', category='danger')
             return redirect(url_for('market_page'))
 
     if request.method == 'GET':
