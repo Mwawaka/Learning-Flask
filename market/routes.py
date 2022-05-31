@@ -27,7 +27,7 @@ def market_page():
             if current_user.can_purchase(p_item_object):
                 p_item_object.buy(current_user)
                 flash(
-                    f'Successfully Purchased : {{p_item_object.name}} for {{p_item_object.price}}$', category='info')
+                    f'Successfully Purchased : {p_item_object.name} for {p_item_object.price}$', category='info')
             else:
                 flash(
                     f'Current Budget is insufficient to purchase the {p_item_object.name}!', category='danger')
