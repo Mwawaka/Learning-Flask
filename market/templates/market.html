@@ -3,7 +3,7 @@
 {% block title %}
 |Market Page
 {% endblock title %}
-{% include 'includes/items_modals.html' %}
+
 
 {% block content %}
 <div class="row" style='margin-top:20px; margin-left:20px'>
@@ -22,13 +22,14 @@
             </thead>
             <tbody>
                 {% for item in items%}
+                {% include 'includes/items_modals.html' %}
                     <tr>
                         <td>{{item.id}}</td>
                         <td>{{item.name}}</td>
                         <td>{{item.barcode}}</td>
                         <td>{{item.price}}</td>
                         <td>
-                            <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo">More Info</button>
+                            <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{item.id}}">More Info</button>
                             <button class="btn btn-outline btn-success">Purchase this Item</button>
                         </td>
                     </tr>
