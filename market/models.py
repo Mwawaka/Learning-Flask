@@ -55,6 +55,11 @@ class Item(db.Model):
     description = db.Column(db.String(length=1024),
                             nullable=False, unique=True)
     owner = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    
+    def buy(self,user):
+        self.owner = user.id
+        user.budget -=self.price
+        db.session.commit()
 
     def __repr__(self):
         return f'Item {self.name}'
