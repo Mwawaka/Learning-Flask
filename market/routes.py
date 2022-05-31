@@ -3,7 +3,7 @@ from market import app
 from market.models import Item, User
 from market.forms import RegisterForm,LoginForm
 from market import db
-from flask_login import login_user, logout_user,login_required
+from flask_login import login_user, logout_user,login_required,current_user
 from market.forms import BuyForm
 
 @app.route('/')
@@ -17,8 +17,13 @@ def home_page():
 def market_page():
     buy_form=BuyForm()
      
-    if buy_form.validate_on_submit():
-        print(request.form.get('buy'))
+    if request.method=='POST':
+        purchased_item=request.form.get('buy')
+        p_item_object=Item.query.filter_by(name=purchased_item).first()
+        if p_item_object:
+            p_item_object.owner=current_user.id
+            current_user.budget-=p_item_object.price
+            db.session.commit()
     items = Item.query.all()
    
    
