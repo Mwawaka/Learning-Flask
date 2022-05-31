@@ -21,10 +21,13 @@ def market_page():
         purchased_item=request.form.get('buy')
         p_item_object=Item.query.filter_by(name=purchased_item).first()
         if p_item_object:
-            p_item_object.owner=current_user.id
-            current_user.budget-=p_item_object.price
-            db.session.commit()
-            flash(f'Successfully Purchased : {{p_item_object.name}} for {{p_item_object.price}}$')
+            if current_user.can_purchase(p_item_object):
+                p_item_object.owner=current_user.id
+                current_user.budget-=p_item_object.price
+                db.session.commit()
+                flash(f'Successfully Purchased : {{p_item_object.name}} for {{p_item_object.price}}$',category='info')
+            else:
+                flash(f'Current Budget is insufficient to purchase the {{p_item_object.name}}',category='danger')
     if request.method=='GET':
         items = Item.query.filter_by(owner=None)
         return render_template('market.html', items=items,buy_form=buy_form)
