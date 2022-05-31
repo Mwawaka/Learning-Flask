@@ -16,10 +16,11 @@ def home_page():
 @login_required 
 def market_page():
     buy_form=BuyForm()
-    items = Item.query.all()
-    
+     
     if buy_form.validate_on_submit():
-        print(buy_form)
+        print(buy_form.__dict__)
+    items = Item.query.all()
+   
    
     return render_template('market.html', items=items,buy_form=buy_form)
 
@@ -65,3 +66,6 @@ def logout_page():
     logout_user()
     flash('You have been logged out!',category='info')
     return redirect(url_for('home_page'))
+
+
+# CROSS SITE REQUEST FORGERY
