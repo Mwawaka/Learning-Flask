@@ -43,7 +43,28 @@
     <div class="col-4">
         <h2>Purchased Items</h2>
         <p>Click on the sale item to put item back to the market</p>
-    </div>
+
+        <br>
+        <div class="row">
+            {%for item in owned_item%}
+            <div class="col-md-6">
+                <div style="margin-bottom: 5px" class="card text-center bg-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <button type="button" class="btn btn-outline-danger" style="margin-bottom: 5px"
+                                data-toggle="modal" data-target="#Modal-SellingConfirm-{{ owned_item.id }}">
+                            Sell this Item
+                        </button>
+                        <p class="card-text"><strong>
+                            This item costs {{ item.price }}$
+                        </strong></p>
+                    </div>
+                </div>
+           </div>
+         {% endfor %}
+            </div>
+
+        </div>
   </div>
 
 {% endblock content %}
