@@ -52,8 +52,10 @@
                         <br>
                     </h4>
                     <h6 class="text-center">By clicking Purchase, you will purchase this item.
-                        <br>
+                       
                     </h6>
+                    <br>
+                    <input id="buy" name="buy" type="hidden" value="{{item.name}}">
                     {{buy_form.buy(class="btn btn-outline-success btn-block")}}
                 </form>
             </div>

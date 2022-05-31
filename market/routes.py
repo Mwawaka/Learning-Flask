@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, request, url_for
 from market import app
 from market.models import Item, User
 from market.forms import RegisterForm,LoginForm
@@ -18,7 +18,7 @@ def market_page():
     buy_form=BuyForm()
      
     if buy_form.validate_on_submit():
-        print(buy_form.__dict__)
+        print(request.form.get('buy'))
     items = Item.query.all()
    
    
