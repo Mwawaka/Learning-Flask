@@ -32,4 +32,4 @@ class BuyForm(FlaskForm):
     buy=SubmitField(label='Purchase Item')
     
 class SellForm(FlaskForm):
-    sell=SubmitField(label='Sale Item')
+    sell=SubmitField(label='Sell Item')
