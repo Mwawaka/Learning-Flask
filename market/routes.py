@@ -28,6 +28,7 @@ def market_page():
                 flash(f'Successfully Purchased : {{p_item_object.name}} for {{p_item_object.price}}$',category='info')
             else:
                 flash(f'Current Budget is insufficient to purchase the {{p_item_object.name}}',category='danger')
+                
     if request.method=='GET':
         items = Item.query.filter_by(owner=None)
         return render_template('market.html', items=items,buy_form=buy_form)
