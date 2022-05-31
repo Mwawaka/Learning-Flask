@@ -64,7 +64,7 @@ class Item(db.Model):
         user.budget -=self.price
         db.session.commit()
     
-    def buy(self,user):
+    def sell(self,user):
         self.owner = None
         user.budget +=self.price
         db.session.commit()

@@ -19,11 +19,11 @@ def market_page():
     buy_form = BuyForm()
     sell_form = SellForm()
     if request.method == 'POST':
-         #purchase item logic
+        # purchase item logic
         purchased_item = request.form.get('buy')
         p_item_object = Item.query.filter_by(name=purchased_item).first()
         if p_item_object:
-           
+
             if current_user.can_purchase(p_item_object):
                 p_item_object.buy(current_user)
                 flash(
@@ -31,18 +31,18 @@ def market_page():
             else:
                 flash(
                     f'Current Budget is insufficient to purchase the {p_item_object.name}!', category='danger')
-        #Sell item logic 
-            sold_item=request.form.get('sell')
-            s_item_object=Item.query.filter_by(name=sold_item).first()
-            if s_item_object:
-                if current_user.can_sell(s_item_object):  
+        # Sell item logic
+        sold_item = request.form.get('sell')
+        s_item_object = Item.query.filter_by(name=sold_item).first()
+        if s_item_object:
+                if current_user.can_sell(s_item_object):
                     s_item_object.sell(current_user)
                     flash(
-                    f'Successfully Sold : {{p_item_object.name}} for {{p_item_object.price}}$', category='info')
+                        f'Successfully Sold : {s_item_object.name} for {s_item_object.price}$', category='info')
                 else:
                     flash(
-                    f'Something went wrong in selling {p_item_object.name}!', category='danger')
-            return redirect(url_for('market_page'))
+                        f'Something went wrong in selling {s_item_object.name}!', category='danger')
+        return redirect(url_for('market_page'))
 
     if request.method == 'GET':
         items = Item.query.filter_by(owner=None)
