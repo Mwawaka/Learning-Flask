@@ -17,11 +17,13 @@ def home_page():
 @login_required
 def market_page():
     buy_form = BuyForm()
-    sell_form=SellForm()
+    sell_form = SellForm()
     if request.method == 'POST':
+         #purchase item logic
         purchased_item = request.form.get('buy')
         p_item_object = Item.query.filter_by(name=purchased_item).first()
         if p_item_object:
+           
             if current_user.can_purchase(p_item_object):
                 p_item_object.buy(current_user)
                 flash(
@@ -29,12 +31,20 @@ def market_page():
             else:
                 flash(
                     f'Current Budget is insufficient to purchase the {p_item_object.name}!', category='danger')
+        #Sell item logic 
+            sold_item=request.form.get('sell')
+            s_item_object=Item.query.filter_by(name=sold_item).first()
+            if s_item_object:
+                if current_user.can_sell(s_item_object):  
+                    s_item_object.sell(current_user)
+                    flash(
+                    f'Successfully Sold : {{p_item_object.name}} for {{p_item_object.price}}$', category='info')
             return redirect(url_for('market_page'))
 
     if request.method == 'GET':
         items = Item.query.filter_by(owner=None)
-        owned_item=Item.query.filter_by(owner=current_user.id)
-        return render_template('market.html', items=items,buy_form=buy_form,owned_item=owned_item,sell_form=sell_form)
+        owned_item = Item.query.filter_by(owner=current_user.id)
+        return render_template('market.html', items=items, buy_form=buy_form, owned_item=owned_item, sell_form=sell_form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -49,7 +59,8 @@ def register_page():
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user)
-        flash(f'Successfully created an account!You are know logged in as : {new_user.username}',category='success')
+        flash(
+            f'Successfully created an account!You are know logged in as : {new_user.username}', category='success')
         return redirect(url_for('market_page'))
     if form.errors != {}:
         for err_msg in form.errors.values():
@@ -58,25 +69,30 @@ def register_page():
 
     return render_template('register.html', form=form)
 
-@app.route('/login',methods=['GET','POST'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login_page():
-    login_form=LoginForm()
+    login_form = LoginForm()
     if login_form.validate_on_submit():
-        
-        attempted_user=User.query.filter_by(username=login_form.user_login.data).first()
-        
+
+        attempted_user = User.query.filter_by(
+            username=login_form.user_login.data).first()
+
         if attempted_user and attempted_user.check_password(attempted_password=login_form.password_login.data):
             login_user(attempted_user)
-            flash(f'Successfully signed in as: {attempted_user.username}',category='success')
+            flash(
+                f'Successfully signed in as: {attempted_user.username}', category='success')
             return redirect(url_for('market_page'))
         else:
-            flash('Username and Password not matched.Please try again!',category='danger')
-    return render_template('login.html',login_form=login_form)
+            flash('Username and Password not matched.Please try again!',
+                  category='danger')
+    return render_template('login.html', login_form=login_form)
+
 
 @app.route('/logout')
 def logout_page():
     logout_user()
-    flash('You have been logged out!',category='info')
+    flash('You have been logged out!', category='info')
     return redirect(url_for('home_page'))
 
 
