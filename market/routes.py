@@ -12,7 +12,7 @@ def home_page():
     return render_template('home.html')
 
 
-@app.route('/market')
+@app.route('/market',methods=['GET','POST'])
 @login_required 
 def market_page():
     buy_form=BuyForm()
